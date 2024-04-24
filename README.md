@@ -1,7 +1,7 @@
 # MilkV-Duo-GPIO
 Milk V Duo Bare Metal GPIO Driver
 
-Basically I made that library to get access to GPIO peripheral from the OS.
+Basically I made that library to get an access to GPIO peripheral from the OS.
 The easiest way to compile that library is to clone duo-examples repository, follow the instruction to setup compiler and environment than add that project to examples.
 
 Interface is very simple:
