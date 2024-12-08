@@ -1,10 +1,15 @@
 /*
- *  MilkV_GPIO.hpp
+ * MilkV_GPIO
+ * Author: Arkadiusz Szlanta
+ * Date: 08 Dec 2024
  *
- *  Created on: Apr 24, 2024
- *  Updated on: Apr 24, 2024
- * 
- *  Author: Arkadiusz Szlanta
+ * License:
+ * This source code is provided for hobbyist and private use only.
+ * Any commercial or industrial use, including distribution, reproduction, or
+ * incorporation in commercial or industrial products or services is prohibited.
+ * Use at your own risk. The author(s) hold no responsibility for any damages
+ * or losses resulting from the use of this software.
+ *
  */
 
 #ifndef MILKV_GPIO_HPP
@@ -14,73 +19,61 @@
 
 class MilkV_GPIO
 {
-   public:
-      enum GPIO_Port
-      {
-         GPIO_PORT_0 = 0,
-         GPIO_PORT_1,
-         GPIO_PORT_2,
-         GPIO_PORT_3,
-         PWR_GPIO
-      };
+public:
+    enum GPIOPort
+    {
+        GPIOPort0 = 0,
+        GPIOPort1,
+        GPIOPort2,
+        GPIOPort3,
+        PowerGPIO
+    };
 
-      enum GPIO_Direction
-      {
-         GPIO_INPUT = 0,
-         GPIO_OUTPUT
-      };
+    enum GPIODirection
+    {
+        GPIOInput = 0,
+        GPIOOutput
+    };
 
-      enum IntLevelType
-      {
-         LEVEL_SENSITIVE = 0,
-         EDGE_SENSITIVE
-      };
+    enum IntLevelType
+    {
+        LevelSensitive = 0,
+        EdgeSensitive
+    };
 
-      enum IntPolarity
-      {
-         ACTIVE_LOW = 0,
-         ACTIVE_HIGH
-      };
+    enum IntPolarity
+    {
+        ActiveLow = 0,
+        ActiveHigh
+    };
 
-      // Make a new GPIO pin instance.
-      MilkV_GPIO(GPIO_Port port, uint32_t pinNumber);
+    MilkV_GPIO(GPIOPort port, uint32_t pinNumber);
+    ~MilkV_GPIO(void);
 
-      // Destructor.
-      ~MilkV_GPIO(void);
+    void init(GPIODirection pinDirection);
 
-      // Initialize GPIO pin.
-      void init(GPIO_Direction pinDirection);
+    void writePin(bool pinState);
+    uint32_t readPin(void);
 
-      // Write pin state.
-      void writePin(bool pinState);
+    void enableInterrupt(void);
+    void disableInterrupt(void);
 
-      // Read pin state.
-      uint32_t readPin(void);
-   
-      // Enable / disable interrupts for GPIO pin.
-      void enableInterrupt(void);
-      void disableInterrupt(void);
+    void enableInterruptMask(void);
+    void disableInterruptMask(void);
 
-      // Enable / disable interrupt mask for GPIO pin.
-      void enableInterruptMask(void);
-      void disableInterruptMask(void);
+    void enableDebounce(void);
+    void disableDebounce(void);
 
-      // Enable / disable debouncing. Useful when button is connected.
-      void enableDebounce(void);
-      void disableDebounce(void);
+    void setInterruptLevelType(IntLevelType levelType = EdgeSensitive);
 
-      // Set interrupt type: Edge Sense / Level sense.
-      void setInterruptLevelType(IntLevelType levelType = EDGE_SENSITIVE);
+    void setInterruptPolarity(IntPolarity polarity = ActiveHigh);
 
-      // Set polarity of interrupt: Active Low / Active High.
-      void setInterruptPolarity(IntPolarity polarity = ACTIVE_HIGH);
+    uint32_t getIntStatus();
+    uint32_t getRawIntStatus();
 
-      uint32_t getIntStatus();
-      uint32_t getRawIntStatus();
-
-   private:
-      GPIO_Port   _mPort;
-      uint32_t    _mPinNumber;
+private:
+    GPIOPort mPort;
+    uint32_t mPinNumber;
 };
 
 #endif // MILKV_GPIO_HPP

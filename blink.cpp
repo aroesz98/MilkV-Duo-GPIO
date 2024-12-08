@@ -4,13 +4,13 @@
 
 #include <MilkV_GPIO.hpp>
 
-static MilkV_GPIO ledgpio(MilkV_GPIO::PWR_GPIO, 2);
+static MilkV_GPIO ledgpio(MilkV_GPIO::PowerGPIO, 2u);
 
 int main()
 {
     ledgpio.init(MilkV_GPIO::GPIO_OUTPUT);
 
-    while(1)
+    while (1)
     {
         ledgpio.writePin(1);
         printf("MilkV_GPIO state: %lu\n", ledgpio.readPin());
